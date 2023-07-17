@@ -8,4 +8,4 @@ def home(request: HttpRequest):
 def products(request):
     context = {'title': "Store - Каталог", 'products': Product.objects.all(), 'categories': ProductCategory.objects.all()
     }
-    return render(request, 'product/products.html')
+    return render(request, 'product/products.html', context)

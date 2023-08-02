@@ -34,19 +34,16 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="products.html">Каталог <i class="fas fa-shopping-bag"></i> </a>
+                    <a class="nav-link" href="/products/">Каталог <i class="fas fa-shopping-bag"></i> </a>
                 </li>
                 
                     
                     
                 
                 {% if user.is_authenticated  %}
-                <li class="nav-item dropdown">
-                    <button class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
-                       data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fas fa-user-circle"></i>
+                <li class="dr">
                     </button>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <ul class="dr">
                         <li>
                             <a class="dropdown-item" href="/users/profile/">Профиль</a>
                         </li>
@@ -60,7 +57,7 @@
                             <hr class="dropdown-divider">
                         </li>
                         <li>
-                            <a class="dropdown-item" href="{% url 'users:logout' %}">
+                            <a class="dropdown-item" href="{% url 'users:log_out' %}">
                                 Выйти
                             </a>
                         </li>
@@ -68,7 +65,7 @@
                 </li>
                 {% else %}
                 <li class="nav-item">
-                    <a class="nav-link" href="users/login.html">Войти <i class="fas fa-sign-in-alt"></i></a>
+                    <a class="nav-link" href="/users/login">Войти <i class="fas fa-sign-in-alt"></i></a>
                 </li>
                 {% endif %}
             </ul>

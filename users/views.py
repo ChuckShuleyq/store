@@ -5,6 +5,8 @@ from users.forms import UserLoginForm, UserRegisterForm, UserProfileForm
 from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
 from django.contrib import messages
+from product.models import Basket
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def register_page(request: HttpRequest):
@@ -29,15 +31,14 @@ def login_page(request: HttpRequest):
             if user:
                 login(request, user)
                 messages.success(request, "Вы успешно вошли")
-                return HttpResponseRedirect(reverse('home'))
+                return HttpResponseRedirect(reverse('product:home'))
         
     else:
         form = UserLoginForm()
     context = {'form': form, 'title': 'Store - вход'}
     return render(request, 'users/login.html', context)
-
+@login_required
 def profile(request: HttpRequest):
-    if request.user.is_authenticated:
 
         if request.method == 'POST':
             form = UserProfileForm(instance=request.user, data=request.POST, files=request.FILES)
@@ -46,16 +47,15 @@ def profile(request: HttpRequest):
                 return HttpResponseRedirect(reverse('users:profile'))
         else:
             form = UserProfileForm(instance=request.user)
-
         context = {
             'title': 'Store - профиль',
             'form': form,
+            'baskets': Basket.objects.filter(user=request.user),
         }
         
         return render(request, 'users/profile.html', context)
-    else:
-        raise PermissionError("You don't have access to view this page!")
-    
-def logout(request: HttpRequest):
+
+@login_required
+def log_out(request: HttpRequest):
     logout(request)
-    return HttpResponseRedirect(reverse('home'))
+    return HttpResponseRedirect(reverse('product:home'))

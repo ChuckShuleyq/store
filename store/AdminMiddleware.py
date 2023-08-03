@@ -9,7 +9,7 @@ class RestrictAdminLoginMiddleware:
     def __call__(self, request: HttpRequest):
         if not request.user.is_superuser and request.path == '/admin/':
             # Redirect non-admin users to a different page
-            return redirect(reverse('home'))  # Change 'home' to the URL name of the desired page
+            return redirect(reverse('product:home'))  # Change 'home' to the URL name of the desired page
         response = self.get_response(request)
         return response
 

@@ -1,6 +1,5 @@
 from django.shortcuts import render, HttpResponseRedirect
 from django.http import HttpRequest
-from users.models import User
 from users.forms import UserLoginForm, UserRegisterForm, UserProfileForm
 from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
@@ -37,6 +36,7 @@ def login_page(request: HttpRequest):
         form = UserLoginForm()
     context = {'form': form, 'title': 'Store - вход'}
     return render(request, 'users/login.html', context)
+
 @login_required
 def profile(request: HttpRequest):
 
